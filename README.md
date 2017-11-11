@@ -80,6 +80,8 @@
     get-vpnconnection   #检查修改结果
     exit   #退出ps控制台
     ```
+    添加用户名和密码：
+    /usr/local/etc/ipsec.secrets
 
 卸载方式
 ===
