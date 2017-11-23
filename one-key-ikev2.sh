@@ -75,6 +75,13 @@ function install_ikev2(){
     success_info
 }
 
+function prevent_ddos(){
+    iptables -A INPUT -m limit --limit 50/minute --limit-burst 200 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 80 -m state --state NEW -m limit --limit 50/minute --limit-burst 200 -j ACCEPT
+    iptables -A INPUT -m state --state RELATED,ESTABLISHED -m limit --limit 50/second --limit-burst 50 -j ACCEPT
+    iptables -A INPUT -j REJECT
+}
+
 # Make sure only root can run our script
 function rootness(){
 if [[ $EUID -ne 0 ]]; then
